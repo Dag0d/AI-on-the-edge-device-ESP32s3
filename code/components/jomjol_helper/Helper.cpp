@@ -30,11 +30,14 @@ extern "C" {
 #include "ClassLogFile.h"
 
 #include "esp_vfs_fat.h"
+#include "driver/temperature_sensor.h"
 #include "../sdmmc_common.h"
 
 static const char* TAG = "HELPER";
 
 using namespace std;
+
+temperature_sensor_handle_t tempSensor = NULL;
 
 unsigned int systemStatus = 0;
 
@@ -550,11 +553,29 @@ string toLower(string in)
 
 
 // CPU Temp
+#ifdef CONFIG_IDF_TARGET_ESP32
 extern "C" uint8_t temprature_sens_read();
 float temperatureRead()
 {
-    return (temprature_sens_read() - 32) / 1.8;
+	return (temprature_sens_read() - 32) / 1.8;
 }
+#elif defined(CONFIG_IDF_TARGET_ESP32S3)
+void setupTemperatureSensor()
+{
+    temperature_sensor_config_t tempSensorConfig = TEMPERATURE_SENSOR_CONFIG_DEFAULT(20, 100);
+    temperature_sensor_install(&tempSensorConfig, &tempSensor);
+    temperature_sensor_enable(tempSensor);
+}
+
+float temperatureRead()
+{
+    float temperature;
+	temperature_sensor_get_celsius(tempSensor, &temperature);
+	return temperature;
+}
+#else
+#error "temperatureRead() not defined"
+#endif
 
 
 time_t addDays(time_t startTime, int days) {

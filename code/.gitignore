@@ -14,3 +14,6 @@ sdkconfig.esp32cam-board-rev3-cpu-freq-240
 sdkconfig.esp32cam-dev-himem
 sdkconfig.esp32cam-dev-task-analysis
 sdkconfig.esp32cam-no-softap
+sdkconfig.xiao-esp32s3-sense
+sdkconfig.xiao-esp32s3-sense-debug
+sdkconfig.xiao-esp32s3-sense-task-analysis

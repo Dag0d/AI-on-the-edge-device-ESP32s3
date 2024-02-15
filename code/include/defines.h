@@ -59,20 +59,38 @@
 
 
     //Statusled + ClassControllCamera
-    #define BLINK_GPIO GPIO_NUM_33              // PIN for red board LED
+    //#define BLINK_GPIO GPIO_NUM_33              // PIN for red board LED
 
 
     //ClassControllCamera
-    #define FLASH_GPIO GPIO_NUM_4               // PIN for flashlight LED
+    //#define FLASH_GPIO GPIO_NUM_4               // PIN for flashlight LED
     #define USE_PWM_LEDFLASH                    // if __LEDGLOBAL is defined, a global variable is used for LED control, otherwise locally and each time a new
     #define CAM_LIVESTREAM_REFRESHRATE 500      // Camera livestream feature: Waiting time in milliseconds to refresh image
     // #define GRAYSCALE_AS_DEFAULT
 
 
     //ClassControllCamera + ClassFlowTakeImage
-    #define CAMERA_MODEL_AI_THINKER
-    #define BOARD_ESP32CAM_AITHINKER
+    // Define BOARD type
+    // Define BOARD_TYPE in platformio.ini
+    #if BOARD_TYPE && BOARD_TYPE == 1
+    #define BOARD_AITHINKER_ESP32CAM
+    #elif BOARD_TYPE && BOARD_TYPE == 2
+    #define BOARD_XIAO_ESP32S3
+    #else
+    #error "Board type (BOARD_TYPE) not defined"
+    #define BOARD_AITHINKER_ESP32CAM
+    #endif
 
+    // Define CAMERA model
+    // Define CAMERA_MODEL in platformio.ini
+    #if CAMERA_MODEL && CAMERA_MODEL == 1
+    #define CAMERA_AITHINKER_ESP32CAM_OV2640
+    #elif CAMERA_MODEL && CAMERA_MODEL == 2
+    #define CAMERA_XIAO_ESP32S3_SENSE_OV2640
+    #else
+    #error "Camera model (CAMERA_MODEL) not defined"
+    #define CAMERA_AITHINKER_ESP32CAM_OV2640
+    #endif
 
     //server_GPIO
     #define __LEDGLOBAL
@@ -214,40 +232,40 @@
 #if defined(CAMERA_MODEL_WROVER_KIT)
     #define PWDN_GPIO_NUM    -1
     #define RESET_GPIO_NUM   -1
-    #define XCLK_GPIO_NUM    21
-    #define SIOD_GPIO_NUM    26
-    #define SIOC_GPIO_NUM    27
+    #define XCLK_GPIO_NUM    GPIO_NUM_21
+    #define SIOD_GPIO_NUM    GPIO_NUM_26
+    #define SIOC_GPIO_NUM    GPIO_NUM_27
 
-    #define Y9_GPIO_NUM      35
-    #define Y8_GPIO_NUM      34
-    #define Y7_GPIO_NUM      39
-    #define Y6_GPIO_NUM      36
-    #define Y5_GPIO_NUM      19
-    #define Y4_GPIO_NUM      18
-    #define Y3_GPIO_NUM       5
-    #define Y2_GPIO_NUM       4
-    #define VSYNC_GPIO_NUM   25
-    #define HREF_GPIO_NUM    23
-    #define PCLK_GPIO_NUM    22
+    #define Y9_GPIO_NUM      GPIO_NUM_35
+    #define Y8_GPIO_NUM      GPIO_NUM_34
+    #define Y7_GPIO_NUM      GPIO_NUM_39
+    #define Y6_GPIO_NUM      GPIO_NUM_36
+    #define Y5_GPIO_NUM      GPIO_NUM_19
+    #define Y4_GPIO_NUM      GPIO_NUM_18
+    #define Y3_GPIO_NUM      GPIO_NUM_5
+    #define Y2_GPIO_NUM      GPIO_NUM_4
+    #define VSYNC_GPIO_NUM   GPIO_NUM_25
+    #define HREF_GPIO_NUM    GPIO_NUM_23
+    #define PCLK_GPIO_NUM    GPIO_NUM_22
 
 #elif defined(CAMERA_MODEL_M5STACK_PSRAM)
     #define PWDN_GPIO_NUM     -1
-    #define RESET_GPIO_NUM    15
-    #define XCLK_GPIO_NUM     27
-    #define SIOD_GPIO_NUM     25
-    #define SIOC_GPIO_NUM     23
+    #define RESET_GPIO_NUM    GPIO_NUM_15
+    #define XCLK_GPIO_NUM     GPIO_NUM_27
+    #define SIOD_GPIO_NUM     GPIO_NUM_25
+    #define SIOC_GPIO_NUM     GPIO_NUM_23
 
-    #define Y9_GPIO_NUM       19
-    #define Y8_GPIO_NUM       36
-    #define Y7_GPIO_NUM       18
-    #define Y6_GPIO_NUM       39
-    #define Y5_GPIO_NUM        5
-    #define Y4_GPIO_NUM       34
-    #define Y3_GPIO_NUM       35
-    #define Y2_GPIO_NUM       32
-    #define VSYNC_GPIO_NUM    22
-    #define HREF_GPIO_NUM     26
-    #define PCLK_GPIO_NUM     21
+    #define Y9_GPIO_NUM       GPIO_NUM_19
+    #define Y8_GPIO_NUM       GPIO_NUM_36
+    #define Y7_GPIO_NUM       GPIO_NUM_18
+    #define Y6_GPIO_NUM       GPIO_NUM_39
+    #define Y5_GPIO_NUM       GPIO_NUM_5
+    #define Y4_GPIO_NUM       GPIO_NUM_34
+    #define Y3_GPIO_NUM       GPIO_NUM_35
+    #define Y2_GPIO_NUM       GPIO_NUM_32
+    #define VSYNC_GPIO_NUM    GPIO_NUM_22
+    #define HREF_GPIO_NUM     GPIO_NUM_26
+    #define PCLK_GPIO_NUM     GPIO_NUM_21
 
 #elif defined(CAMERA_MODEL_AI_THINKER)
     #define PWDN_GPIO_NUM     GPIO_NUM_32
@@ -267,6 +285,25 @@
     #define VSYNC_GPIO_NUM    GPIO_NUM_25
     #define HREF_GPIO_NUM     GPIO_NUM_23
     #define PCLK_GPIO_NUM     GPIO_NUM_22
+
+#elif defined(CAMERA_XIAO_ESP32S3_SENSE_OV2640)
+    #define PWDN_GPIO_NUM       -1
+    #define RESET_GPIO_NUM      -1
+    #define XCLK_GPIO_NUM       GPIO_NUM_10
+    #define SIOD_GPIO_NUM       GPIO_NUM_40
+    #define SIOC_GPIO_NUM       GPIO_NUM_39
+
+    #define Y9_GPIO_NUM         GPIO_NUM_48
+    #define Y8_GPIO_NUM         GPIO_NUM_11
+    #define Y7_GPIO_NUM         GPIO_NUM_12
+    #define Y6_GPIO_NUM         GPIO_NUM_14
+    #define Y5_GPIO_NUM         GPIO_NUM_16
+    #define Y4_GPIO_NUM         GPIO_NUM_18
+    #define Y3_GPIO_NUM         GPIO_NUM_17
+    #define Y2_GPIO_NUM         GPIO_NUM_15
+    #define VSYNC_GPIO_NUM      GPIO_NUM_38
+    #define HREF_GPIO_NUM       GPIO_NUM_47
+    #define PCLK_GPIO_NUM       GPIO_NUM_13
 
 #else
     #error "Camera model not selected"
@@ -292,6 +329,8 @@
     #define CAM_PIN_VSYNC 25
     #define CAM_PIN_HREF 23
     #define CAM_PIN_PCLK 22
+    #define BLINK_GPIO -1              // PIN for red board LED
+    #define FLASH_GPIO -1              // PIN for flashlight LED
 
 #endif //// WROVER-KIT PIN Map
 
@@ -315,8 +354,34 @@
     #define CAM_PIN_VSYNC 25
     #define CAM_PIN_HREF 23
     #define CAM_PIN_PCLK 22
+    #define BLINK_GPIO GPIO_NUM_33              // PIN for red board LED
+    #define FLASH_GPIO GPIO_NUM_4               // PIN for flashlight LED
 
 #endif // ESP32Cam (AiThinker) PIN Map
+
+#ifdef BOARD_XIAO_ESP32S3 // XIAO ESP32S3 Sense PIN Map
+
+    #define CAM_PIN_PWDN -1
+    #define CAM_PIN_RESET -1 //software reset will be performed
+    #define CAM_PIN_XCLK 10
+    #define CAM_PIN_SIOD 40
+    #define CAM_PIN_SIOC 39
+
+    #define CAM_PIN_D7 48
+    #define CAM_PIN_D6 11
+    #define CAM_PIN_D5 12
+    #define CAM_PIN_D4 14
+    #define CAM_PIN_D3 16
+    #define CAM_PIN_D2 18
+    #define CAM_PIN_D1 17
+    #define CAM_PIN_D0 15
+    #define CAM_PIN_VSYNC 38
+    #define CAM_PIN_HREF 47
+    #define CAM_PIN_PCLK 13
+    #define BLINK_GPIO GPIO_NUM_21              // PIN for red board LED
+    #define FLASH_GPIO GPIO_NUM_3               // PIN for flashlight LED
+
+#endif // XIAO ESP32S3 Sense PIN Map
 
 // ******* LED definition
 #ifdef USE_PWM_LEDFLASH

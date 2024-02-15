@@ -44,16 +44,22 @@ bool Init_NVS_SDCard()
     slot_config.width = 1;
 #endif
 
+#if BOARD_TYPE && BOARD_TYPE == 1
     // GPIOs 15, 2, 4, 12, 13 should have external 10k pull-ups.
     // Internal pull-ups are not sufficient. However, enabling internal pull-ups
     // does make a difference some boards, so we do that here.
     gpio_set_pull_mode(GPIO_NUM_15, GPIO_PULLUP_ONLY);   // CMD, needed in 4- and 1- line modes
     gpio_set_pull_mode(GPIO_NUM_2, GPIO_PULLUP_ONLY);    // D0, needed in 4- and 1-line modes
-#ifndef __SD_USE_ONE_LINE_MODE__
-    gpio_set_pull_mode(GPIO_NUM_4, GPIO_PULLUP_ONLY);    // D1, needed in 4-line mode only
-    gpio_set_pull_mode(GPIO_NUM_12, GPIO_PULLUP_ONLY);   // D2, needed in 4-line mode only
-#endif
+    #ifndef __SD_USE_ONE_LINE_MODE__
+        gpio_set_pull_mode(GPIO_NUM_4, GPIO_PULLUP_ONLY);    // D1, needed in 4-line mode only
+        gpio_set_pull_mode(GPIO_NUM_12, GPIO_PULLUP_ONLY);   // D2, needed in 4-line mode only
+    #endif
     gpio_set_pull_mode(GPIO_NUM_13, GPIO_PULLUP_ONLY);   // D3, needed in 4- and 1-line modes
+#elif BOARD_TYPE && BOARD_TYPE == 2
+    gpio_set_pull_mode(GPIO_NUM_9, GPIO_PULLUP_ONLY);   // CMD, Only 1-line mode avaiablesupported by hardware
+    gpio_set_pull_mode(GPIO_NUM_8, GPIO_PULLUP_ONLY);    // D0, Only 1-line mode avaiablesupported by hardware
+    gpio_set_pull_mode(GPIO_NUM_21, GPIO_PULLUP_ONLY);   // D3, Only 1-line mode avaiablesupported by hardware
+#endif
 
     // Options for mounting the filesystem.
     // If format_if_mount_failed is set to true, SD card will be partitioned and

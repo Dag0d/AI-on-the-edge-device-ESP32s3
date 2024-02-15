@@ -40,6 +40,9 @@ int removeFolder(const char* folderPath, const char* logTag);
 string toLower(string in);
 string toUpper(string in);
 
+#ifdef CONFIG_IDF_TARGET_ESP32S3
+void setupTemperatureSensor();
+#endif
 float temperatureRead();
 
 time_t addDays(time_t startTime, int days);

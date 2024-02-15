@@ -190,6 +190,13 @@ extern "C" void app_main(void)
     // Highlight start of app_main 
     // ********************************************
     ESP_LOGI(TAG, "\n\n\n\n================ Start app_main =================");
+
+
+    // Init temperature sensor (ESP32S3)
+    // ********************************************
+    #ifdef CONFIG_IDF_TARGET_ESP32S3
+    setupTemperatureSensor();
+    #endif
  
 
     // Init SD card
@@ -752,7 +759,14 @@ std::vector<std::string> splitString(const std::string& str) {
 bool setCpuFrequency(void) {
     ConfigFile configFile = ConfigFile(CONFIG_FILE); 
     string cpuFrequency = "160";
-    esp_pm_config_esp32_t  pm_config; 
+
+	    #ifdef CONFIG_IDF_TARGET_ESP32
+    	esp_pm_config_esp32_t pm_config; 
+	    #elif defined(CONFIG_IDF_TARGET_ESP32S3)
+    	esp_pm_config_esp32s3_t pm_config;
+	    #else
+		    #error "esp_pm_config_* not defined"
+	    #endif
 
     if (!configFile.ConfigFileExists()){
         LogFile.WriteToFile(ESP_LOG_WARN, TAG, "No ConfigFile defined - exit setCpuFrequency()!");
