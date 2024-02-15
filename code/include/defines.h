@@ -73,23 +73,23 @@
     // Define BOARD type
     // Define BOARD_TYPE in platformio.ini
     #if BOARD_TYPE && BOARD_TYPE == 1
-    #define BOARD_AITHINKER_ESP32CAM
+    #define BOARD_ESP32CAM_AITHINKER
     #elif BOARD_TYPE && BOARD_TYPE == 2
     #define BOARD_XIAO_ESP32S3
     #else
     #error "Board type (BOARD_TYPE) not defined"
-    #define BOARD_AITHINKER_ESP32CAM
+    #define BOARD_ESP32CAM_AITHINKER
     #endif
 
     // Define CAMERA model
     // Define CAMERA_MODEL in platformio.ini
     #if CAMERA_MODEL && CAMERA_MODEL == 1
-    #define CAMERA_AITHINKER_ESP32CAM_OV2640
+    #define CAMERA_MODEL_AI_THINKER
     #elif CAMERA_MODEL && CAMERA_MODEL == 2
     #define CAMERA_XIAO_ESP32S3_SENSE_OV2640
     #else
     #error "Camera model (CAMERA_MODEL) not defined"
-    #define CAMERA_AITHINKER_ESP32CAM_OV2640
+    #define CAMERA_MODEL_AI_THINKER
     #endif
 
     //server_GPIO
