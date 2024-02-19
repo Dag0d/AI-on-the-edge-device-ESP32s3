@@ -220,7 +220,7 @@
 					<label for="ExpertModus_enabled">Show Expert Parameters</label> 
 			</td>
 			<td>
-				<button style="display:none;" class="button" id="Edit_Config_Direct" onclick="editConfigDirect()">Edit Config file directly</button>
+				<button style="display:none;" class="button" id="Button_Edit_Config_Raw" onclick="editConfigRaw()">Edit Config file in raw mode</button>
 			</td>
 		</tr>
 
@@ -266,7 +266,6 @@
 		</tr>
 
 		<tr class="expert" unused_id="ex1">
-			
 			<td class="indent1">
 				<class id="TakeImage_WaitBeforeTakingPicture_text" style="color:black;">Wait Before Taking Picture</class>
 			</td>
@@ -282,7 +281,7 @@
 				<class id="TakeImage_Brightness_text" style="color:black;">Brightness</class>
 			</td>
 			<td>
-				<input required type="number" id="TakeImage_Brightness_value1" size="13" min="-2" max="2"
+				<input required type="number" id="TakeImage_Brightness_value1" size="13" min="-2" max="2" onchange="cameraParameterChanged()"
 					oninput="(!validity.rangeUnderflow||(value=-2)) && (!validity.rangeOverflow||(value=2)) &&
 						(!validity.stepMismatch||(value=parseInt(this.value)));">
 			</td>
@@ -294,7 +293,7 @@
 				<class id="TakeImage_Contrast_text" style="color:black;">Contrast</class>
 			</td>
 			<td>
-				<input required type="number" id="TakeImage_Contrast_value1" size="13" min="-2" max="2"
+				<input required type="number" id="TakeImage_Contrast_value1" size="13" min="-2" max="2" onchange="cameraParameterChanged()"
 					oninput="(!validity.rangeUnderflow||(value=-2)) && (!validity.rangeOverflow||(value=2)) &&
 						(!validity.stepMismatch||(value=parseInt(this.value)));">
 			</td>
@@ -306,7 +305,7 @@
 				<class id="TakeImage_Saturation_text" style="color:black;">Saturation</class>
 			</td>
 			<td>
-				<input required type="number" id="TakeImage_Saturation_value1" size="13" min="-2" max="2"
+				<input required type="number" id="TakeImage_Saturation_value1" size="13" min="-2" max="2" onchange="cameraParameterChanged()"
 					oninput="(!validity.rangeUnderflow||(value=-2)) && (!validity.rangeOverflow||(value=2)) &&
 						(!validity.stepMismatch||(value=parseInt(this.value)));">
 			</td>
@@ -318,7 +317,7 @@
 				<class id="TakeImage_Sharpness_text" style="color:black;">Sharpness</class>
 			</td>
 			<td>
-				<input required type="number" id="TakeImage_Sharpness_value1" size="13" min="-4" max="3"
+				<input required type="number" id="TakeImage_Sharpness_value1" size="13" min="-4" max="3" onchange="cameraParameterChanged()"
 					oninput="(!validity.rangeUnderflow||(value=-4)) && (!validity.rangeOverflow||(value=3)) &&
 						(!validity.stepMismatch||(value=parseInt(this.value)));">
 			</td>
@@ -330,7 +329,7 @@
 				<class id="TakeImage_LEDIntensity_text" style="color:black;">LED Intensity</class>
 			</td>
 			<td>
-				<input required type="number" id="TakeImage_LEDIntensity_value1" size="13" min="0" max="100"
+				<input required type="number" id="TakeImage_LEDIntensity_value1" size="13" min="0" max="100" onchange="cameraParameterChanged()"
 					oninput="(!validity.rangeUnderflow||(value=0)) && (!validity.rangeOverflow||(value=100)) &&
 						(!validity.stepMismatch||(value=parseInt(this.value)));">
 			</td>
@@ -342,7 +341,7 @@
 				<class id="TakeImage_ImageQuality_text" style="color:black;">Image Quality</class>
 			</td>
 			<td>
-				<input required type="number" id="TakeImage_ImageQuality_value1" size="13" min="8" max="63"
+				<input required type="number" id="TakeImage_ImageQuality_value1" size="13" min="8" max="63" onchange="cameraParameterChanged()"
 					oninput="(!validity.rangeUnderflow||(value=8)) && (!validity.rangeOverflow||(value=63)) &&
 						(!validity.stepMismatch||(value=parseInt(this.value)));">
 			</td>
@@ -354,7 +353,7 @@
 				<class id="TakeImage_ImageSize_text" style="color:black;">Image Size</class>
 			</td>
 			<td>
-				<select id="TakeImage_ImageSize_value1">
+				<select id="TakeImage_ImageSize_value1" onchange="cameraParameterChanged()">
 					<option value="VGA" selected>VGA</option>
 					<option value="QVGA" >QVGA</option>
 				</select>
@@ -367,7 +366,7 @@
 				<class id="TakeImage_Zoom_text" style="color:black;">Zoom</class>
 			</td>
 			<td>
-				<select id="TakeImage_Zoom_value1">
+				<select id="TakeImage_Zoom_value1" onchange="cameraParameterChanged()">
 					<option value="true">true</option>
 					<option value="false" selected>false</option>
 				</select>
@@ -380,7 +379,7 @@
 				<class id="TakeImage_ZoomMode_text" style="color:black;">Zoom Mode</class>
 			</td>
 			<td>
-				<select id="TakeImage_ZoomMode_value1">
+				<select id="TakeImage_ZoomMode_value1" onchange="cameraParameterChanged()">
 					<option value="1">1</option>
 					<option value="0" selected>0</option>
 				</select>
@@ -394,7 +393,7 @@
 				<class id="TakeImage_ZoomOffsetX_text" style="color:black;">Zoom Offset X</class>
 			</td>
 			<td>
-				<input required type="number" id="TakeImage_ZoomOffsetX_value1" size="13" min="0" step="any"
+				<input required type="number" id="TakeImage_ZoomOffsetX_value1" size="13" min="0" step="any" onchange="cameraParameterChanged()"
 					oninput="(!validity.rangeUnderflow||(value=0));">Pixel
 			</td>
 			<td>$TOOLTIP_TakeImage_ZoomOffsetX</td>
@@ -406,7 +405,7 @@
 				<class id="TakeImage_ZoomOffsetY_text" style="color:black;">Zoom Offset Y</class>
 			</td>
 			<td>
-				<input required type="number" id="TakeImage_ZoomOffsetY_value1" size="13" min="0" step="any"
+				<input required type="number" id="TakeImage_ZoomOffsetY_value1" size="13" min="0" step="any" onchange="cameraParameterChanged()"
 					oninput="(!validity.rangeUnderflow||(value=0));">Pixel
 			</td>
 			<td>$TOOLTIP_TakeImage_ZoomOffsetY</td>
@@ -417,7 +416,7 @@
 				<class id="TakeImage_Grayscale_text" style="color:black;">Grayscale</class>
 			</td>
 			<td>
-				<select id="TakeImage_Grayscale_value1">
+				<select id="TakeImage_Grayscale_value1" onchange="cameraParameterChanged()">
 					<option value="true">true</option>
 					<option value="false" selected>false</option>
 				</select>
@@ -430,7 +429,7 @@
 				<class id="TakeImage_Negative_text" style="color:black;">Negative</class>
 			</td>
 			<td>
-				<select id="TakeImage_Negative_value1">
+				<select id="TakeImage_Negative_value1" onchange="cameraParameterChanged()">
 					<option value="true">true</option>
 					<option value="false" selected>false</option>
 				</select>
@@ -443,7 +442,7 @@
 				<class id="TakeImage_Aec2_text" style="color:black;">Auto-exposure Control 2</class>
 			</td>
 			<td>
-				<select id="TakeImage_Aec2_value1">
+				<select id="TakeImage_Aec2_value1" onchange="cameraParameterChanged()">
 					<option value="true">true</option>
 					<option value="false" selected>false</option>
 				</select>
@@ -456,7 +455,7 @@
 				<class id="TakeImage_AutoExposureLevel_text" style="color:black;">Auto Exposure Level</class>
 			</td>
 			<td>
-				<input required type="number" id="TakeImage_AutoExposureLevel_value1" size="13" min="-2" max="2"
+				<input required type="number" id="TakeImage_AutoExposureLevel_value1" size="13" min="-2" max="2" onchange="cameraParameterChanged()"
 					oninput="(!validity.rangeUnderflow||(value=-2)) && (!validity.rangeOverflow||(value=2)) &&
 						(!validity.stepMismatch||(value=parseInt(this.value)));">
 			</td>
@@ -468,7 +467,7 @@
 				<class id="TakeImage_FixedExposure_text" style="color:black;">Fixed Exposure</class>
 			</td>
 			<td>
-				<select id="TakeImage_FixedExposure_value1">
+				<select id="TakeImage_FixedExposure_value1" onchange="cameraParameterChanged()">
 					<option value="true">true</option>
 					<option value="false" selected>false</option>
 				</select>
@@ -1796,11 +1795,28 @@
 <script type="text/javascript">
 var canvas = document.getElementById('canvas'),
     domainname = getDomainname(),
+    changeCamValue = 0,	
     param,
     category,
     NUNBERSAkt = -1,
     NUMBERS;
 
+	
+function cameraParameterChanged() {
+    changeCamValue = 1;
+
+    if (document.getElementById("TakeImage_Zoom_value1").value == "false") {
+        document.getElementById("TakeImage_ZoomMode_value1").disabled = true;
+        document.getElementById("TakeImage_ZoomOffsetX_value1").disabled = true;
+        document.getElementById("TakeImage_ZoomOffsetY_value1").disabled = true;		
+    }
+    else {
+        document.getElementById("TakeImage_ZoomMode_value1").disabled = false;
+        document.getElementById("TakeImage_ZoomOffsetX_value1").disabled = false;
+        document.getElementById("TakeImage_ZoomOffsetY_value1").disabled = false;	
+    }	
+}
+	
 
 function LoadConfigNeu() {
     domainname = getDomainname(); 
@@ -1818,6 +1834,17 @@ function LoadConfigNeu() {
     UpdateInputIndividual(sel);
     UpdateExpertModus();
     document.getElementById("divall").style.display = ''; 
+
+    if (document.getElementById("TakeImage_Zoom_value1").value == "false") {
+        document.getElementById("TakeImage_ZoomMode_value1").disabled = true;
+        document.getElementById("TakeImage_ZoomOffsetX_value1").disabled = true;
+        document.getElementById("TakeImage_ZoomOffsetY_value1").disabled = true;		
+    }
+    else {
+        document.getElementById("TakeImage_ZoomMode_value1").disabled = false;
+        document.getElementById("TakeImage_ZoomOffsetX_value1").disabled = false;
+        document.getElementById("TakeImage_ZoomOffsetY_value1").disabled = false;	
+    }	
 }
 
 
@@ -2503,11 +2530,11 @@ function UpdateExpertModus() {
         // _style = '';
         _style_pur = '';
         _hidden = false;
-        document.getElementById("Edit_Config_Direct").style.display = "";
+        document.getElementById("Button_Edit_Config_Raw").style.display = "";
         firework.launch("Expert view activated. Please use carefully", 'warning', 5000);
     }
     else {
-        document.getElementById("Edit_Config_Direct").style.display = "none"; 
+        document.getElementById("Button_Edit_Config_Raw").style.display = "none"; 
     }
 
     const expert = document.querySelectorAll(".expert");
@@ -2544,9 +2571,56 @@ function saveTextAsFile() {
         SaveConfigToServer(domainname);
 
         firework.launch('Configuration saved. It will get applied after the next reboot!', 'success', 5000);
+
+        if (changeCamValue == 1) {
+            camSettingsSet(param);
+            firework.launch('You have changed the camera settings, so creating a new reference image and updating the alignment marks is mandatory!', 'success', 10000);		
+        }	    
     }
 }
 
+
+function camSettingsSet(_param) {
+    var domainname = getDomainname();
+    var xhttp = new XMLHttpRequest();
+			
+    var _grayscale = _param["TakeImage"]["Grayscale"].value1;
+    var _negative = _param["TakeImage"]["Negative"].value1;
+    var _aec2 = _param["TakeImage"]["Aec2"].value1;
+    var _FixedExposure = _param["TakeImage"]["FixedExposure"].value1;
+    var _zoom = _param["TakeImage"]["Zoom"].value1;
+
+    var _zm = _param["TakeImage"]["ZoomMode"].value1;
+    var _x = _param["TakeImage"]["ZoomOffsetX"].value1;
+    var _y = _param["TakeImage"]["ZoomOffsetY"].value1;
+    var _intensity = _param["TakeImage"]["LEDIntensity"].value1;
+    var _brightness = _param["TakeImage"]["Brightness"].value1;
+    var _contrast = _param["TakeImage"]["Contrast"].value1;
+    var _saturation = _param["TakeImage"]["Saturation"].value1;
+    var _sharpness = _param["TakeImage"]["Sharpness"].value1;
+    var _ae = _param["TakeImage"]["AutoExposureLevel"].value1;
+
+    var url = domainname + "/editflow?task=cam_settings";
+    url = url + "&bri=" + _brightness + "&con=" + _contrast + "&sat=" + _saturation + "&sh=" + _sharpness;
+    url = url + "&int=" + _intensity + "&gs=" + _grayscale + "&ne=" + _negative + "&z=" + _zoom;
+			
+    if (_zoom != '0') {
+        url = url + "&zm=" + _zm + "&x=" + _x + "&y=" + _y;
+    }
+    else {
+        url = url + "&zm=0" + "&x=0" + "&y=0";
+    }	
+				
+    url = url + "&ae=" + _ae + "&a2=" + _aec2;
+			
+    if (domainname.length > 0){
+        url = url + "&host=" + domainname;
+    }
+
+    xhttp.open("GET", url, true);
+    xhttp.send();			
+}
+	
 
 function doReboot() {
     if (confirm("Are you sure you want to reboot?")) {
@@ -2559,9 +2633,9 @@ function doReboot() {
 }
 
 
-function editConfigDirect() {
-    if (confirm("Proceed to switch the view? Unsaved changes get lost")) {
-        var stringota = getDomainname() + "/edit_config.html?v=$COMMIT_HASH";
+function editConfigRaw() {
+    if (confirm("Proceed to switch to raw edit mode? Unsaved changes will get lost")) {
+        var stringota = getDomainname() + "/edit_config_raw.html?v=$COMMIT_HASH";
         window.location = stringota;
         window.location.href = stringota;
         window.location.assign(stringota);
